@@ -46,4 +46,29 @@ class CurrencyService {
       throw Exception('Failed to load rate data');
     }
   }
+
+  Future<CurrencyData> fetchHistorialRates(
+      {required List<String> symbols, required String date}) async {
+    final response = await http.get(Uri.https(
+        baseUrl!,
+        '/api/historical/$date.json',
+        {'app_id': apiKey, 'symbols': symbols.join(',')}));
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> data = jsonDecode(response.body);
+      final Map<String, num> filteredRates = {};
+      for (var symbol in symbols) {
+        if (data['rates'].containsKey(symbol)) {
+          filteredRates[symbol] = data['rates'][symbol];
+        }
+      }
+      return CurrencyData(
+        timestamp: data['timestamp'],
+        base: data['base'],
+        rates: filteredRates,
+      );
+    } else {
+      throw Exception('Failed to load historical rate data');
+    }
+  }
 }

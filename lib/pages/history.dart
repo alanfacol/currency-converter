@@ -85,10 +85,16 @@ class _HistoryState extends State<History> {
               ),
               Expanded(
                 child: isLoading
-                    ? const Center(
-                        child: CircularProgressIndicator(
-                            color: Color.fromARGB(255, 125, 184, 86)),
-                      )
+                    ? const Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                            CircularProgressIndicator(
+                                color: Color.fromARGB(255, 125, 184, 86)),
+                            SizedBox(height: 10.0),
+                            Text(
+                              "Carregando dados",
+                            ),
+                          ])
                     : ListView.builder(
                         itemCount: rates?.length,
                         itemBuilder: (BuildContext context, int index) {

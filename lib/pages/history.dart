@@ -56,7 +56,18 @@ class _HistoryState extends State<History> {
     });
   }
 
-  void checkCurrencies() {}
+  double getPercentage(List<CurrencyData> currencies, int index,
+      String currency1, String currency2) {
+    if (index < currencies.length - 1) {
+      double percent = (((currencies[index].rates[currency2] ?? 1.0) /
+              (currencies[index].rates[currency1] ?? 1.0)) /
+          ((currencies[index + 1].rates[currency2] ?? 1.0) /
+              (currencies[index + 1].rates[currency1] ?? 1.0)));
+      return (percent - 1) * 100;
+    } else {
+      return 0;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +110,8 @@ class _HistoryState extends State<History> {
                         itemCount: rates?.length,
                         itemBuilder: (BuildContext context, int index) {
                           CurrencyData currencyData = rates!.elementAt(index);
+                          double percentage = getPercentage(
+                              rates!, index, currency1!, currency2!);
 
                           int? timestamp =
                               int.tryParse(currencyData.timestamp.toString());
@@ -109,11 +122,30 @@ class _HistoryState extends State<History> {
 
                           return ListTile(
                             title: Text(dataFormatada),
-                            subtitle: Column(
+                            subtitle: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                     '1 $currency1 = ${((currencyData.rates[currency2] ?? 1.0) / (currencyData.rates[currency1] ?? 1.0)).toStringAsFixed(4)} $currency2'),
+                                const SizedBox(width: 5.0),
+                                percentage > 0
+                                    ? const Icon(
+                                        Icons.arrow_upward,
+                                        size: 20,
+                                        color: Colors.green,
+                                      )
+                                    : percentage == 0
+                                        ? const Icon(
+                                            Icons.linear_scale,
+                                            size: 20,
+                                          )
+                                        : const Icon(
+                                            Icons.arrow_downward,
+                                            size: 20,
+                                            color: Colors.red,
+                                          ),
+                                const SizedBox(width: 5.0),
+                                Text('${percentage.toStringAsFixed(3)}%')
                               ],
                             ),
                           );

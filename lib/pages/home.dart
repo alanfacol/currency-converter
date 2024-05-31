@@ -232,7 +232,7 @@ class _HomeState extends State<Home> {
                   Row(
                     children: [
                       Text(
-                          "1 $selectedCurrency1 = ${((rates?.rates[selectedCurrency2] ?? 1.0) / (rates?.rates[selectedCurrency1] ?? 1.0)).toStringAsFixed(2)} $selectedCurrency2",
+                          "1 $selectedCurrency1 = ${((rates?.rates[selectedCurrency2] ?? 1.0) / (rates?.rates[selectedCurrency1] ?? 1.0)).toStringAsFixed(3)} $selectedCurrency2",
                           style: const TextStyle(fontSize: 16.0))
                     ],
                   )

@@ -83,10 +83,15 @@ class _HomeState extends State<Home> {
   }
 
   String formatTimestamp() {
-    int? timestamp =
-        int.tryParse(rates?.timestamp.toString() ?? ''); // Exemplo de timestamp
-    DateTime data = DateTime.fromMillisecondsSinceEpoch(timestamp! * 1000);
-    return DateFormat('dd/MM/yyyy').format(data);
+    try {
+      int? timestamp = int.tryParse(rates?.timestamp.toString() ?? '');
+      DateTime data = DateTime.fromMillisecondsSinceEpoch(timestamp! * 1000);
+      return DateFormat('dd/MM/yyyy').format(data);
+    } catch (e) {
+      // ignore: avoid_print
+      print(e);
+      return '';
+    }
   }
 
   @override

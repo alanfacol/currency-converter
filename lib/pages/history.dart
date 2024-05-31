@@ -86,7 +86,7 @@ class _HistoryState extends State<History> {
                 margin: const EdgeInsets.only(top: 20.0, bottom: 20.00),
                 child: Column(children: [
                   const Text(
-                    'Últimos 5 dias das moedas selecionadas',
+                    'Últimos 5 dias',
                     style: TextStyle(fontSize: 20.0),
                   ),
                   Text('$currency1 -> $currency2',

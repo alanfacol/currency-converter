@@ -123,7 +123,8 @@ class _HomeState extends State<Home> {
                 ]),
               ),
               Container(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.only(
+                    top: 30.0, left: 40.0, right: 40.0, bottom: 30.0),
                 margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(197, 255, 255, 255),
@@ -164,7 +165,7 @@ class _HomeState extends State<Home> {
                               }).toList(),
                               decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 15.0, vertical: 15.0),
+                                      horizontal: 5.0, vertical: 5.0),
                                   border: InputBorder.none),
                               icon: const Icon(
                                   Icons.arrow_drop_down_circle_outlined)),
@@ -186,6 +187,7 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 15.0),
                     Row(children: [
                       Expanded(
                           child: Column(children: [
@@ -198,10 +200,12 @@ class _HomeState extends State<Home> {
                               updateSecondTextField();
                             });
                           },
-                          child: const Icon(Icons.currency_exchange),
+                          child:
+                              const Icon(Icons.change_circle_rounded, size: 35),
                         )
                       ]))
                     ]),
+                    const Text("Para"),
                     Row(
                       children: [
                         Expanded(
@@ -226,7 +230,7 @@ class _HomeState extends State<Home> {
                               }).toList(),
                               decoration: const InputDecoration(
                                   contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 15.0, vertical: 15.0),
+                                      horizontal: 5.0, vertical: 5.0),
                                   border: InputBorder.none),
                               icon: const Icon(
                                   Icons.arrow_drop_down_circle_outlined)),
@@ -250,7 +254,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.all(20),
+                margin: const EdgeInsets.only(left: 20, right: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -279,7 +283,7 @@ class _HomeState extends State<Home> {
                     currency2: selectedCurrency2)),
           );
         },
-        child: const Icon(Icons.history),
+        child: const Icon(Icons.timeline_outlined),
       ),
     );
   }

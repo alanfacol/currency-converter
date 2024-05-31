@@ -101,151 +101,157 @@ class _HomeState extends State<Home> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        Expanded(
-            child: IntrinsicHeight(
-                child: Container(
+      body: Container(
           color: const Color.fromARGB(100, 218, 218, 218),
-          child: Column(children: [
-            Container(
-              margin: const EdgeInsets.only(top: 20.0),
-              child: const Column(children: [
-                Text(
-                  'Faça suas conversões em tempo real',
-                  style: TextStyle(fontSize: 20.0),
-                ),
-                Text('Veja a cotação de cada moeda nesse exato momento',
-                    style: TextStyle(fontSize: 14.0, color: Colors.grey))
-              ]),
-            ),
-            Container(
-              padding: const EdgeInsets.all(40.0),
-              margin: const EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                  color: const Color.fromARGB(197, 255, 255, 255),
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1), // Cor da sombra
-                      spreadRadius: 0.1,
-                      blurRadius: 10,
-                      offset: const Offset(10, 10),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+            Expanded(
+                child: SingleChildScrollView(
+                    child: Column(children: [
+              Container(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: const Column(children: [
+                  Text(
+                    'Faça suas conversões em tempo real',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  Text('Veja a cotação de cada moeda nesse exato momento',
+                      style: TextStyle(fontSize: 14.0, color: Colors.grey))
+                ]),
+              ),
+              Container(
+                padding: const EdgeInsets.all(40.0),
+                margin: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    color: const Color.fromARGB(197, 255, 255, 255),
+                    borderRadius: BorderRadius.circular(10.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.1), // Cor da sombra
+                        spreadRadius: 0.1,
+                        blurRadius: 10,
+                        offset: const Offset(10, 10),
+                      ),
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text("Converter"),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: DropdownButtonFormField<String>(
+                              value: selectedCurrency1,
+                              isExpanded: true,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedCurrency1 = newValue;
+                                });
+                                updateSecondTextField();
+                              },
+                              items: currencies.entries
+                                  .map<DropdownMenuItem<String>>(
+                                      (MapEntry<String, String> value) {
+                                return DropdownMenuItem<String>(
+                                  value: value.key,
+                                  child: Text('${value.value} (${value.key})',
+                                      style: const TextStyle(fontSize: 14.0)),
+                                );
+                              }).toList(),
+                              decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 15.0),
+                                  border: InputBorder.none),
+                              icon: const Icon(
+                                  Icons.arrow_drop_down_circle_outlined)),
+                        ),
+                        const SizedBox(width: 20.0),
+                        Expanded(
+                          child: TextField(
+                            controller: firstTextFieldController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: 'Digite o valor',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
+                            onChanged: (value) {
+                              updateSecondTextField();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ]),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text("Converter"),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                            value: selectedCurrency1,
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedCurrency1 = newValue;
-                              });
-                              updateSecondTextField();
-                            },
-                            items: currencies.entries
-                                .map<DropdownMenuItem<String>>(
-                                    (MapEntry<String, String> value) {
-                              return DropdownMenuItem<String>(
-                                value: value.key,
-                                child: Text(value.key),
-                              );
-                            }).toList(),
-                            decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 15.0),
-                                border: InputBorder.none),
-                            icon: const Icon(
-                                Icons.arrow_drop_down_circle_outlined)),
-                      ),
-                      const SizedBox(width: 20.0),
-                      Expanded(
-                        child: TextField(
-                          controller: firstTextFieldController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            hintText: 'Digite o valor',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                          ),
-                          onChanged: (value) {
-                            updateSecondTextField();
-                          },
+                    const SizedBox(height: 20.0),
+                    const Text("Para"),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: DropdownButtonFormField<String>(
+                              value: selectedCurrency2,
+                              isExpanded: true,
+                              isDense: false,
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedCurrency2 = newValue;
+                                });
+                                updateSecondTextField();
+                              },
+                              items: currencies.entries
+                                  .map<DropdownMenuItem<String>>(
+                                      (MapEntry<String, String> value) {
+                                return DropdownMenuItem<String>(
+                                  value: value.key,
+                                  child: Text('${value.value} (${value.key})',
+                                      style: const TextStyle(fontSize: 14.0)),
+                                );
+                              }).toList(),
+                              decoration: const InputDecoration(
+                                  contentPadding: EdgeInsets.symmetric(
+                                      horizontal: 15.0, vertical: 15.0),
+                                  border: InputBorder.none),
+                              icon: const Icon(
+                                  Icons.arrow_drop_down_circle_outlined)),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20.0),
-                  const Text("Para"),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: DropdownButtonFormField<String>(
-                            value: selectedCurrency2,
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedCurrency2 = newValue;
-                              });
-                              updateSecondTextField();
-                            },
-                            items: currencies.entries
-                                .map<DropdownMenuItem<String>>(
-                                    (MapEntry<String, String> value) {
-                              return DropdownMenuItem<String>(
-                                value: value.key,
-                                child: Text(value.key),
-                              );
-                            }).toList(),
-                            decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 15.0),
-                                border: InputBorder.none),
-                            icon: const Icon(
-                                Icons.arrow_drop_down_circle_outlined)),
-                      ),
-                      const SizedBox(width: 20.0),
-                      Expanded(
-                        child: TextField(
-                          controller: secondTextFieldController,
-                          keyboardType: TextInputType.number,
-                          enabled: false,
-                          decoration: InputDecoration(
-                            hintText: 'Resultado',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
+                        const SizedBox(width: 20.0),
+                        Expanded(
+                          child: TextField(
+                            controller: secondTextFieldController,
+                            keyboardType: TextInputType.number,
+                            enabled: false,
+                            decoration: InputDecoration(
+                              hintText: 'Resultado',
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Indicador de conversão (${formatTimestamp()})",
-                      style:
-                          const TextStyle(fontSize: 14.0, color: Colors.grey)),
-                  Row(
-                    children: [
-                      Text(
-                          "1 $selectedCurrency1 = ${((rates?.rates[selectedCurrency2] ?? 1.0) / (rates?.rates[selectedCurrency1] ?? 1.0)).toStringAsFixed(3)} $selectedCurrency2",
-                          style: const TextStyle(fontSize: 16.0))
-                    ],
-                  )
-                ],
-              ),
-            )
-          ]),
-        )))
-      ]),
+              Container(
+                margin: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Indicador de conversão (${formatTimestamp()})",
+                        style: const TextStyle(
+                            fontSize: 14.0, color: Colors.grey)),
+                    Row(
+                      children: [
+                        Text(
+                            "1 $selectedCurrency1 = ${((rates?.rates[selectedCurrency2] ?? 1.0) / (rates?.rates[selectedCurrency1] ?? 1.0)).toStringAsFixed(3)} $selectedCurrency2",
+                            style: const TextStyle(fontSize: 16.0))
+                      ],
+                    )
+                  ],
+                ),
+              )
+            ])))
+          ])),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(

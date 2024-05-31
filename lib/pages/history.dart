@@ -19,7 +19,6 @@ class History extends StatefulWidget {
 }
 
 class _HistoryState extends State<History> {
-  List<String> moneySymbol = ['USD', 'BRL', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'];
   List<CurrencyData>? rates = [];
   bool isLoading = true;
 
@@ -44,7 +43,8 @@ class _HistoryState extends State<History> {
 
         CurrencyService currencyService = CurrencyService();
         currencies.add(await currencyService.fetchHistorialRates(
-            symbols: moneySymbol, date: dataFormatada));
+            symbols: [widget.currency1!, widget.currency2!],
+            date: dataFormatada));
       }
     } catch (e) {
       // ignore: avoid_print

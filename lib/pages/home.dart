@@ -140,35 +140,37 @@ class _HomeState extends State<Home> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: selectedCurrency1,
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedCurrency1 = newValue;
-                            });
-                            updateSecondTextField();
-                          },
-                          items: currencies.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> value) {
-                            return DropdownMenuItem<String>(
-                              value: value.key,
-                              child: Text(value.key),
-                            );
-                          }).toList(),
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 15.0, vertical: 15.0),
-                          ),
-                        ),
+                            value: selectedCurrency1,
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedCurrency1 = newValue;
+                              });
+                              updateSecondTextField();
+                            },
+                            items: currencies.entries
+                                .map<DropdownMenuItem<String>>(
+                                    (MapEntry<String, String> value) {
+                              return DropdownMenuItem<String>(
+                                value: value.key,
+                                child: Text(value.key),
+                              );
+                            }).toList(),
+                            decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 15.0, vertical: 15.0),
+                                border: InputBorder.none),
+                            icon: const Icon(
+                                Icons.arrow_drop_down_circle_outlined)),
                       ),
                       const SizedBox(width: 20.0),
                       Expanded(
                         child: TextField(
                           controller: firstTextFieldController,
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'Digite o valor',
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
                           ),
                           onChanged: (value) {
                             updateSecondTextField();
@@ -183,26 +185,27 @@ class _HomeState extends State<Home> {
                     children: [
                       Expanded(
                         child: DropdownButtonFormField<String>(
-                          value: selectedCurrency2,
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedCurrency2 = newValue;
-                            });
-                            updateSecondTextField();
-                          },
-                          items: currencies.entries
-                              .map<DropdownMenuItem<String>>(
-                                  (MapEntry<String, String> value) {
-                            return DropdownMenuItem<String>(
-                              value: value.key,
-                              child: Text(value.key),
-                            );
-                          }).toList(),
-                          decoration: const InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 15.0, vertical: 15.0),
-                          ),
-                        ),
+                            value: selectedCurrency2,
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedCurrency2 = newValue;
+                              });
+                              updateSecondTextField();
+                            },
+                            items: currencies.entries
+                                .map<DropdownMenuItem<String>>(
+                                    (MapEntry<String, String> value) {
+                              return DropdownMenuItem<String>(
+                                value: value.key,
+                                child: Text(value.key),
+                              );
+                            }).toList(),
+                            decoration: const InputDecoration(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 15.0, vertical: 15.0),
+                                border: InputBorder.none),
+                            icon: const Icon(
+                                Icons.arrow_drop_down_circle_outlined)),
                       ),
                       const SizedBox(width: 20.0),
                       Expanded(
@@ -210,9 +213,10 @@ class _HomeState extends State<Home> {
                           controller: secondTextFieldController,
                           keyboardType: TextInputType.number,
                           enabled: false,
-                          decoration: const InputDecoration(
+                          decoration: InputDecoration(
                             hintText: 'Resultado',
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
                           ),
                         ),
                       ),

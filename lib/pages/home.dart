@@ -102,7 +102,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Center(
+            child: Text(
+          widget.title,
+        )),
       ),
       body: Container(
           color: const Color.fromARGB(100, 218, 218, 218),
@@ -112,14 +115,18 @@ class _HomeState extends State<Home> {
                 child: SingleChildScrollView(
                     child: Column(children: [
               Container(
-                margin: const EdgeInsets.only(top: 20.0),
+                margin: const EdgeInsets.only(top: 20.0, left: 20, right: 20),
                 child: const Column(children: [
                   Text(
                     'Faça suas conversões em tempo real',
                     style: TextStyle(fontSize: 20.0),
+                    textAlign: TextAlign.center,
                   ),
-                  Text('Veja a cotação de cada moeda nesse exato momento',
-                      style: TextStyle(fontSize: 14.0, color: Colors.grey))
+                  Text(
+                    'Veja a cotação de cada moeda nesse exato momento',
+                    style: TextStyle(fontSize: 14.0, color: Colors.grey),
+                    textAlign: TextAlign.center,
+                  )
                 ]),
               ),
               Container(

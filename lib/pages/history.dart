@@ -77,7 +77,10 @@ class _HistoryState extends State<History> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          title: const Text("Histórico de cotação"),
+          title: const Text(
+            "Histórico de cotação",
+            textAlign: TextAlign.center,
+          ),
         ),
         body: Center(
           child: Column(
@@ -88,6 +91,7 @@ class _HistoryState extends State<History> {
                   const Text(
                     'Últimos 5 dias',
                     style: TextStyle(fontSize: 20.0),
+                    textAlign: TextAlign.center,
                   ),
                   Text('$currency1 -> $currency2',
                       style:

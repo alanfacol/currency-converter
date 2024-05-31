@@ -21,6 +21,7 @@ class History extends StatefulWidget {
 class _HistoryState extends State<History> {
   List<String> moneySymbol = ['USD', 'BRL', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'];
   List<CurrencyData>? rates = [];
+  bool isLoading = true;
 
   @override
   void initState() {
@@ -51,6 +52,7 @@ class _HistoryState extends State<History> {
     }
     setState(() {
       rates?.addAll(currencies);
+      isLoading = false;
     });
   }
 
@@ -82,30 +84,35 @@ class _HistoryState extends State<History> {
                 ]),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: rates?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    CurrencyData currencyData = rates!.elementAt(index);
+                child: isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(
+                            color: Color.fromARGB(255, 125, 184, 86)),
+                      )
+                    : ListView.builder(
+                        itemCount: rates?.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          CurrencyData currencyData = rates!.elementAt(index);
 
-                    int? timestamp =
-                        int.tryParse(currencyData.timestamp.toString());
-                    DateTime data =
-                        DateTime.fromMillisecondsSinceEpoch(timestamp! * 1000);
-                    String dataFormatada =
-                        DateFormat('dd/MM/yyyy').format(data);
+                          int? timestamp =
+                              int.tryParse(currencyData.timestamp.toString());
+                          DateTime data = DateTime.fromMillisecondsSinceEpoch(
+                              timestamp! * 1000);
+                          String dataFormatada =
+                              DateFormat('dd/MM/yyyy').format(data);
 
-                    return ListTile(
-                      title: Text(dataFormatada),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              '1 $currency1 = ${((currencyData.rates[currency2] ?? 1.0) / (currencyData.rates[currency1] ?? 1.0)).toStringAsFixed(4)} $currency2'),
-                        ],
+                          return ListTile(
+                            title: Text(dataFormatada),
+                            subtitle: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    '1 $currency1 = ${((currencyData.rates[currency2] ?? 1.0) / (currencyData.rates[currency1] ?? 1.0)).toStringAsFixed(4)} $currency2'),
+                              ],
+                            ),
+                          );
+                        },
                       ),
-                    );
-                  },
-                ),
               ),
             ],
           ),

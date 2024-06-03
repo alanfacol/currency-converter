@@ -10,14 +10,14 @@ class CurrencyService {
   CurrencyService();
 
   Future<Map<String, String>> fetchCurrencies(
-      {List<String>? allowedTypes}) async {
+      {List<String>? allowedCodes}) async {
     final response = await http
         .get(Uri.https(baseUrl!, '/api/currencies.json', {'app_id': apiKey}));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
-      if (allowedTypes != null && allowedTypes.isNotEmpty) {
-        data.removeWhere((key, value) => !allowedTypes.contains(key));
+      if (allowedCodes != null && allowedCodes.isNotEmpty) {
+        data.removeWhere((key, value) => !allowedCodes.contains(key));
       }
       return Map<String, String>.from(data);
     } else {
@@ -25,16 +25,16 @@ class CurrencyService {
     }
   }
 
-  Future<CurrencyData> fetchRates({required List<String> symbols}) async {
+  Future<CurrencyData> fetchRates({required List<String> codes}) async {
     final response = await http.get(Uri.https(baseUrl!, '/api/latest.json',
-        {'app_id': apiKey, 'symbols': symbols.join(',')}));
+        {'app_id': apiKey, 'symbols': codes.join(',')}));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
       final Map<String, num> filteredRates = {};
-      for (var symbol in symbols) {
-        if (data['rates'].containsKey(symbol)) {
-          filteredRates[symbol] = data['rates'][symbol];
+      for (var code in codes) {
+        if (data['rates'].containsKey(code)) {
+          filteredRates[code] = data['rates'][code];
         }
       }
       return CurrencyData(
@@ -48,16 +48,16 @@ class CurrencyService {
   }
 
   Future<CurrencyData> fetchHistorialRates(
-      {required List<String> symbols, required String date}) async {
+      {required List<String> codes, required String date}) async {
     final response = await http.get(Uri.https(
         baseUrl!,
         '/api/historical/$date.json',
-        {'app_id': apiKey, 'symbols': symbols.join(',')}));
+        {'app_id': apiKey, 'symbols': codes.join(',')}));
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = jsonDecode(response.body);
       final Map<String, num> filteredRates = {};
-      for (var symbol in symbols) {
+      for (var symbol in codes) {
         if (data['rates'].containsKey(symbol)) {
           filteredRates[symbol] = data['rates'][symbol];
         }

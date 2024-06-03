@@ -17,7 +17,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<String> moneySymbol = ['USD', 'BRL', 'EUR', 'GBP', 'AUD', 'CAD', 'JPY'];
+  List<String> currencyCodes = [
+    'USD',
+    'BRL',
+    'EUR',
+    'GBP',
+    'AUD',
+    'CAD',
+    'JPY'
+  ];
   String? selectedCurrency1 = 'USD';
   String? selectedCurrency2 = 'BRL';
   Map<String, String> currencies = {};
@@ -61,7 +69,7 @@ class _HomeState extends State<Home> {
     try {
       CurrencyService currencyService = CurrencyService();
       Map<String, String> loadedCurrencies =
-          await currencyService.fetchCurrencies(allowedTypes: moneySymbol);
+          await currencyService.fetchCurrencies(allowedCodes: currencyCodes);
       setState(() {
         currencies = loadedCurrencies;
       });
@@ -75,7 +83,7 @@ class _HomeState extends State<Home> {
     try {
       CurrencyService currencyService = CurrencyService();
       CurrencyData loadedCurrencies =
-          await currencyService.fetchRates(symbols: moneySymbol);
+          await currencyService.fetchRates(codes: currencyCodes);
       setState(() {
         rates = loadedCurrencies;
       });

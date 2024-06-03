@@ -34,17 +34,17 @@ class _HistoryState extends State<History> {
   }
 
   void loadHistoricalRates() async {
-    DateTime dataAtual = DateTime.now();
+    DateTime now = DateTime.now();
     List<CurrencyData> currencies = [];
     try {
       for (int i = 0; i <= 5; i++) {
-        DateTime data = dataAtual.subtract(Duration(days: i));
-        String dataFormatada = DateFormat('yyyy-MM-dd').format(data);
+        DateTime date = now.subtract(Duration(days: i));
+        String formattedDate = DateFormat('yyyy-MM-dd').format(date);
 
         CurrencyService currencyService = CurrencyService();
         currencies.add(await currencyService.fetchHistorialRates(
-            symbols: [widget.currency1!, widget.currency2!],
-            date: dataFormatada));
+            codes: [widget.currency1!, widget.currency2!],
+            date: formattedDate));
       }
     } catch (e) {
       // ignore: avoid_print

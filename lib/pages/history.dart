@@ -37,7 +37,7 @@ class _HistoryState extends State<History> {
     DateTime dataAtual = DateTime.now();
     List<CurrencyData> currencies = [];
     try {
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i <= 5; i++) {
         DateTime data = dataAtual.subtract(Duration(days: i));
         String dataFormatada = DateFormat('yyyy-MM-dd').format(data);
 
@@ -111,7 +111,7 @@ class _HistoryState extends State<History> {
                             ),
                           ])
                     : ListView.builder(
-                        itemCount: rates?.length,
+                        itemCount: rates!.length - 1,
                         itemBuilder: (BuildContext context, int index) {
                           CurrencyData currencyData = rates!.elementAt(index);
                           double percentage = getPercentage(

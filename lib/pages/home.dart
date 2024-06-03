@@ -1,10 +1,7 @@
-import 'dart:ui';
-
 import 'package:currency_converter/http/request.dart';
 import 'package:currency_converter/model/currency.model.dart';
 import 'package:currency_converter/pages/history.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
